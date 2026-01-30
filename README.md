@@ -3,11 +3,12 @@
 ## What will be done in version 1
 - dashboard : 20% 
 - transaction list: 70%
-- recurring bills: 0%
+- recurring bills: 20%
 
 ### What has been completed ?
 - dashboard overview with total, income and expenses
-- transactions list, pagination
+- transactions list -> data; pagination
+- recurring bills -> data; pagination
 
 ### Continuation
 - sorting and filtering list
