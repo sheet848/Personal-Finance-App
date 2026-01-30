@@ -9,11 +9,11 @@
 - dashboard overview with total, income and expenses
 - transactions list -> data; pagination
 - recurring bills -> data; pagination
+- logout feature
 
 ### Continuation
 - sorting and filtering list
 - transaction board on dashboard
-- logout feature
 - add Transaction to server and save it
 
 ## Technology Used
