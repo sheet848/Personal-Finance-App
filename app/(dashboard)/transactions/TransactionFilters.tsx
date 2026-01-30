@@ -1,12 +1,22 @@
-export default function TransactionFilters() {
+interface Props {
+  search: string;
+  onSearchChange: (value: string) => void;
+}
+
+export default function TransactionFilters({
+  search, onSearchChange,
+}: Props) {
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
       {/* Search */}
       <input
-        type="text"
-        placeholder="Search transaction"
-        className="border rounded-md px-3 py-2 text-sm w-64"
-      />
+            type="text"
+            value={search}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Search transaction"
+            className="border rounded-md px-3 py-2 text-sm w-64"
+        />
 
       {/* Right controls */}
       <div className="flex items-center gap-4">

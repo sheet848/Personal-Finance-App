@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { OverviewCard } from "@/components/ui/overview-card";
 import { calculateDashboardStats } from "@/lib/utils/calculateDashboardStats";
+import LogoutButton from "@/components/ui/logout-button";
 
 interface Transaction {
   id: string;
@@ -44,9 +45,7 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <button className="bg-black text-white px-4 py-2 rounded-lg text-sm">
-          + Logout
-        </button>
+        <LogoutButton />
       </div>
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <OverviewCard

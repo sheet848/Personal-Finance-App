@@ -15,7 +15,7 @@ export default async function Transactions({ searchParams }: { searchParams: { p
     .from("transactions")
     .select("*", { count: "exact" })
     .order("date", { ascending: false })
-    .range(from, to);;
+    .range(from, to);
 
   if (error) {
     console.error(error);

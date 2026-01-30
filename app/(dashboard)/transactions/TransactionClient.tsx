@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import TransactionTable from "./TransactionTable";
-import Pagination from "./Pagination";
 import TransactionFilters from "./TransactionFilters";
+import Pagination from "@/components/ui/Pagination";
+import { useTransactions } from "@/hooks/useTransactions";
+
 
 interface TransactionClientProps {
   transactions: any[]; // or the proper Transaction type
@@ -12,9 +15,17 @@ interface TransactionClientProps {
 }
 
 export default function TransactionClient({ transactions, page, total, pageSize }: TransactionClientProps) {
+  
+  const [search, setSearch] = useState('');
+
+  //const { data: transactions, loading } = useTransactions({ search });
+
   return (
     <div className="space-y-6">
-      <TransactionFilters />
+      <TransactionFilters 
+        search={search} 
+        onSearchChange={(value) => setSearch(value)}
+      />
 
       <TransactionTable transactions={transactions} />
 

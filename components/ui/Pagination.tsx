@@ -31,7 +31,7 @@ export default function Pagination({ page, total, pageSize }: PaginationProps) {
       <button className="px-3 py-2 border rounded-md"
         disabled={page === 1} 
         onClick={() => goToPage(page - 1)}>
-        ◀ Prev
+         Prev
       </button>
 
       <div className="flex items-center gap-2">
@@ -42,7 +42,7 @@ export default function Pagination({ page, total, pageSize }: PaginationProps) {
       <button className="px-3 py-2 border rounded-md"
        disabled={page === totalPages} 
         onClick={() => goToPage(page + 1)}>
-        Next ▶
+        Next
       </button>
     </div>
   )
