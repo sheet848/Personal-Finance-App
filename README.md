@@ -2,17 +2,18 @@
 
 ## What will be done in version 1
 - dashboard : 20% 
-- transaction list: 70%
-- recurring bills: 70%
+- transaction list: 100%
+- recurring bills: 100%
+- add new transaction
 
 ### What has been completed ?
 - dashboard overview with total, income and expenses
-- transactions list -> data; pagination
+- transactions list -> data; pagination; 
 - recurring bills -> data; pagination, summarized values
 - logout feature
+- sorting and filtering list: transaction + recurring
 
 ### Continuation
-- sorting and filtering list
 - transaction board on dashboard
 - add Transaction to server and save it
 
