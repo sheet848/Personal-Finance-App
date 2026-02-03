@@ -1,21 +1,16 @@
 import { createClient } from "@/lib/supabase/server";
 import TransactionClient from "./TransactionClient";
 
-const PAGE_SIZE = 10;
-
 export default async function Transactions({ searchParams }: { searchParams: { page?: string }; }) {
 
   const supabase = await createClient();
 
   const page = Number(searchParams.page ?? 1);
-  const from = (page - 1) * PAGE_SIZE;
-  const to = from + PAGE_SIZE - 1;
 
   const { data: transactions, count, error } = await supabase
     .from("transactions")
     .select("*", { count: "exact" })
-    .order("date", { ascending: false })
-    .range(from, to);
+    .order("date", { ascending: false });
 
   if (error) {
     console.error(error);
@@ -34,9 +29,7 @@ export default async function Transactions({ searchParams }: { searchParams: { p
 
       {/* Card */}
       <div className="bg-white rounded-xl p-6 shadow-sm">
-        <TransactionClient transactions={transactions ?? []} page={page}
-          total={count ?? 0}
-          pageSize={PAGE_SIZE} />
+        <TransactionClient transactions={transactions ?? []} />
       </div>
     </div>
   );

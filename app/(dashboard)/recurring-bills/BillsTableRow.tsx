@@ -1,3 +1,5 @@
+"use client";
+
 interface BillsTableRowProps {
     transaction: {
         avatar: string;

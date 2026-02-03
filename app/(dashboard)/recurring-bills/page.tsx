@@ -1,30 +1,31 @@
 import { createClient } from "@/lib/supabase/server";
 import TotalBillsCard from "./TotalBillsCard";
 import SummaryCard from "./SummaryCard";
-import BillsControls from "./BillsControls";
-import BillsTable from "./BillsTable";
-import Pagination from "@/components/ui/Pagination";
-
-const PAGE_SIZE = 3;
+import { useRecurringSummary } from "@/hooks/useRecurringSummary";
+import RecurringBillClient from "./RecurringBillClient";
 
 export default async function RecurringBills({ searchParams }: { searchParams: { page?: string }; }) {
 
   const supabase = await createClient();
 
   const page = Number(searchParams.page ?? 1);
-  const from = (page - 1) * PAGE_SIZE;
-  const to = from + PAGE_SIZE - 1;
 
-  const { data: transactions, count, error } = await supabase
+  const { data: transactions, error } = await supabase
     .from("transactions")
     .select("*", { count: "exact" })
-    .range(from, to)
     .eq("recurring", true);
 
   if (error) {
     console.error(error);
     return <p>Failed to load transactions</p>;
   }
+
+  const {
+    totalBills,
+    paidBills,
+    totalUpcoming,
+    dueSoon
+  } = useRecurringSummary(transactions)
 
   return (
     <div className="p-6 bg-[#f8f4ef] min-h-screen">
@@ -36,19 +37,12 @@ export default async function RecurringBills({ searchParams }: { searchParams: {
       <div className="grid grid-cols-12 gap-6">
         {/* Left sidebar */}
         <div className="col-span-12 lg:col-span-3 space-y-6">
-          <TotalBillsCard />
-          <SummaryCard />
+          <TotalBillsCard totalBills={totalBills} />
+          <SummaryCard paidBills={paidBills} totalUpcoming={totalUpcoming} dueSoon={dueSoon} />
         </div>
 
         {/* Main content */}
-        <div className="col-span-12 lg:col-span-9 bg-white rounded-xl p-6">
-          <BillsControls />
-          <BillsTable transactions={transactions} />
-          <Pagination
-            page={page}
-            total={count}
-            pageSize={PAGE_SIZE} />
-        </div>
+        <RecurringBillClient transactions={transactions ?? []} />
       </div>
     </div>
   );

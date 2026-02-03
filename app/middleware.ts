@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
   const isAuthPage =
     request.nextUrl.pathname.startsWith('/auth')
 
-  const protectedRoutes = ['/dashboard', '/transactions', '/budgets', '/pots', '/recurring-bills']
+  const protectedRoutes = ['/dashboard', '/transactions', '/recurring-bills'];
   const isProtectedRoute = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route))
 
   // 🚫 Not logged in → trying to access protected route
@@ -58,8 +58,6 @@ export const config = {
   matcher: [
     '/dashboard/:path*',
     '/transactions/:path*',
-    '/budgets/:path*',
-    '/pots/:path*',
     '/recurring-bills/:path*',
     '/auth/:path*',
   ],
