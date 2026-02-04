@@ -4,7 +4,7 @@
 - dashboard : 20% 
 - transaction list: 100%
 - recurring bills: 100%
-- add new transaction
+- add new transaction: 50% -> create the proper connection to supabase db
 
 ### What has been completed ?
 - dashboard overview with total, income and expenses
@@ -15,6 +15,7 @@
 
 ### Continuation
 - transaction board on dashboard
+- recurring bill on dashboard
 - add Transaction to server and save it
 
 ## Technology Used
