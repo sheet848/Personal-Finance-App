@@ -1,13 +1,21 @@
 import { createClient } from "@/lib/supabase/server";
 import TransactionClient from "./TransactionClient";
+import AddTransactionButton from "./AddTransactionButton";
 
-export default async function Transactions({ searchParams }: { searchParams: { page?: string }; }) {
+interface Transaction {
+  id: number;
+  name: string;
+  category: string;
+  amount: number;
+  date: string;
+  recurring: boolean;
+}
+
+export default async function Transactions() {
 
   const supabase = await createClient();
 
-  const page = Number(searchParams.page ?? 1);
-
-  const { data: transactions, count, error } = await supabase
+  const { data: transactions, error } = await supabase
     .from("transactions")
     .select("*", { count: "exact" })
     .order("date", { ascending: false });
@@ -22,9 +30,7 @@ export default async function Transactions({ searchParams }: { searchParams: { p
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">Transactions</h1>
-        <button className="bg-black text-white px-4 py-2 rounded-lg text-sm">
-          + Add New Transaction
-        </button>
+        <AddTransactionButton initialTransaction={transactions} />
       </div>
 
       {/* Card */}

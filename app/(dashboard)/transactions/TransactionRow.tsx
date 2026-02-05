@@ -24,7 +24,7 @@ export default function TransactionRow({ transaction }: Props) {
                             />
                         ) : (
                             <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
-                                {transaction.name[0]}
+                                {transaction.name[0].toLocaleUpperCase()}
                             </div>
                         )
                     }
