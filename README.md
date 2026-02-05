@@ -1,7 +1,7 @@
 # Personal Finance Dashboard
 
 ## What will be done in version 1
-- dashboard : 20% 
+- dashboard : 80% 
 - transaction list: 100%
 - recurring bills: 100%
 - add new transaction: 50% -> create the proper connection to supabase db
@@ -12,11 +12,13 @@
 - recurring bills -> data; pagination, summarized values
 - logout feature
 - sorting and filtering list: transaction + recurring
-
-### Continuation
 - transaction board on dashboard
 - recurring bill on dashboard
+- add expensecategory chart on dashboard
+
+### Continuation
 - add Transaction to server and save it
+- monthy expense -> income needed or not, think about it
 
 ## Technology Used
 - NextJS
