@@ -25,3 +25,4 @@
 - Supabase -> Authentication + Database
 - TailwindCSS
 - TypeScript
+- recharts library
