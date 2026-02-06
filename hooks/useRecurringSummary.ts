@@ -15,8 +15,7 @@ export function useRecurringSummary(transactions: Transaction[]) {
 
   const isDueSoon = (date: string) => {
     const billDate = new Date(date)
-    const diff =
-      (billDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    const diff = (billDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
     return diff >= 0 && diff <= DAYS_DUE_SOON
   }
 

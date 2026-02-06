@@ -34,7 +34,7 @@ export default function BillsTableRow({ transaction }: BillsTableRowProps) {
             </div>
 
             <div className="col-span-3 text-sm text-gray-500 flex items-center gap-2">
-                {new Date(transaction.date).toLocaleDateString()}
+                {new Date(transaction.date).toLocaleDateString("en-CA")}
                 <span className="w-2 h-2 rounded-full bg-green-600" />
             </div>
 

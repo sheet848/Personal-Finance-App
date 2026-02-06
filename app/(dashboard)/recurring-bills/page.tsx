@@ -4,11 +4,11 @@ import SummaryCard from "./SummaryCard";
 import { useRecurringSummary } from "@/hooks/useRecurringSummary";
 import RecurringBillClient from "./RecurringBillClient";
 
-export default async function RecurringBills({ searchParams }: { searchParams: { page?: string }; }) {
+export default async function RecurringBills() {
 
   const supabase = await createClient();
 
-  const page = Number(searchParams.page ?? 1);
+  //const page = Number(searchParams.page ?? 1);
 
   const { data: transactions, error } = await supabase
     .from("transactions")
@@ -19,6 +19,8 @@ export default async function RecurringBills({ searchParams }: { searchParams: {
     console.error(error);
     return <p>Failed to load transactions</p>;
   }
+
+  console.log(transactions);
 
   const {
     totalBills,

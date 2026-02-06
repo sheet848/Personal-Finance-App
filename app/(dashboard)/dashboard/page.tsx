@@ -7,6 +7,7 @@ import { calculateDashboardStats } from "@/lib/utils/calculateDashboardStats";
 import LogoutButton from "@/components/ui/logout-button";
 import { useRecurringSummary } from "@/hooks/useRecurringSummary";
 import ExpenseByCategoryChart from "@/components/ui/ExpenseByCategoryChart";
+import SpendingVelocityChart from "@/components/ui/SpendingVelocityChart";
 
 interface Transaction {
   id: string;
@@ -15,6 +16,32 @@ interface Transaction {
   amount: number;
   category: string;
   date: string;
+}
+
+function buildSpendingVelocity(transactions: Transaction[], year: number, month: number) {
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+
+  const daily = Array(daysInMonth).fill(0)
+
+  transactions.forEach(tx => {
+    const d = new Date(tx.date)
+    if (
+      d.getFullYear() === year &&
+      d.getMonth() === month
+    ) {
+      daily[d.getDate() - 1] += tx.amount
+    }
+  })
+
+  // cumulative sum
+  let total = 0
+  return daily.map((value, index) => {
+    total += value
+    return {
+      day: index + 1,
+      total
+    }
+  })
 }
 
 function TransactionDashboard({ dashboardtransaction }: { dashboardtransaction: Transaction[] }) {
@@ -32,19 +59,19 @@ function TransactionDashboard({ dashboardtransaction }: { dashboardtransaction: 
             {dashboardtransaction.map((tx) => (
               <div key={tx.id} className="flex justify-between items-center py-2 border-b border-grey-200">
                 <div className="size-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
-                    {
-                        tx.avatar ? (
-                            <img
-                                src={tx.avatar}
-                                alt={tx.name}
-                                className="h-10 w-10 rounded-full object-cover"
-                            />
-                        ) : (
-                            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
-                                {tx.name[0]}
-                            </div>
-                        )
-                    }
+                  {
+                    tx.avatar ? (
+                      <img
+                        src={tx.avatar}
+                        alt={tx.name}
+                        className="h-10 w-10 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
+                        {tx.name[0]}
+                      </div>
+                    )
+                  }
 
                 </div>
                 <span className="text-grey-700">{tx.name}</span>
@@ -97,10 +124,10 @@ function RecurringDashboard({ paidBills, totalUpcoming, dueSoon }: { paidBills: 
 
 export default function Dashboard() {
 
-  const supabase = createClient()
+  const supabase = createClient();
 
-  const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [loading, setLoading] = useState(true)
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchTransactions() {
@@ -120,7 +147,25 @@ export default function Dashboard() {
 
   if (loading) return <div>Loading...</div>
 
-  const { income, expenses, balance } = calculateDashboardStats(transactions);
+  const now = new Date();
+
+  // data for velocity map
+  const currentMonthData = buildSpendingVelocity(
+    transactions,
+    now.getFullYear(),
+    now.getMonth()
+  )
+
+  const previousMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1)
+
+  const previousMonthData = buildSpendingVelocity(
+    transactions,
+    previousMonthDate.getFullYear(),
+    previousMonthDate.getMonth()
+  )
+
+
+  const { income, expenses, balance } = calculateDashboardStats(transactions); // overview card stats
 
   const dashboardTransactions = transactions.slice(0, 5); // Show only the latest 5 transactions
 
@@ -128,7 +173,7 @@ export default function Dashboard() {
     paidBills,
     totalUpcoming,
     dueSoon
-  } = useRecurringSummary(transactions);
+  } = useRecurringSummary(transactions); // recurring bill summary
 
   return (
     <div className="p-6 bg-[#f8f4ef] min-h-screen">
@@ -155,10 +200,13 @@ export default function Dashboard() {
       <section className="columns-1 gap-4 lg:columns-2">
         {/* Additional dashboard content can go here */}
         <div className="mb-4 break-inside-avoid">
-          <ExpenseByCategoryChart transactions={transactions} />
+          <SpendingVelocityChart currentMonth={currentMonthData} previousMonth={previousMonthData} />
         </div>
         <div className="mb-4 break-inside-avoid">
           <TransactionDashboard dashboardtransaction={dashboardTransactions} />
+        </div>
+        <div className="mb-4 break-inside-avoid">
+          <ExpenseByCategoryChart transactions={transactions} />
         </div>
         <div className="mb-4 break-inside-avoid">
           <RecurringDashboard paidBills={paidBills} totalUpcoming={totalUpcoming} dueSoon={dueSoon} />

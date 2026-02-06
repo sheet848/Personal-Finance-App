@@ -8,9 +8,7 @@ export default function Sidebar() {
     <aside
       className="fixed bottom-0 left-0 z-50
       flex h-16 w-full items-center justify-around
-      bg-neutral-900
-
-      md:static md:h-screen md:w-64
+      bg-neutral-900 md:h-screen md:w-64
       md:flex-col md:justify-start
     "
     >
@@ -32,9 +30,7 @@ export default function Sidebar() {
       {/* Footer */}
       <div className="mt-auto pt-6">
         <button
-          className=" mt-auto hidden items-center gap-2 px-4 py-4
-    text-sm text-gray-400 hover:text-white
-    md:flex"
+          className=" mt-auto hidden items-center gap-2 px-4 py-4 text-sm text-gray-400 hover:text-white md:flex"
         >
           ⏴ Minimize Menu
         </button>

@@ -6,12 +6,6 @@ interface BillsTableProps {
 
 export default function BillsTable({ transactions }: BillsTableProps) {
 
-    /*if(transactions.length === 0) {
-        return (
-            <p className="text-center py-4 text-gray-500">No bills found</p>
-        )
-    }*/
-
     return (
         <div className="divide-y">
             <div className="grid grid-cols-12 py-3 text-sm text-gray-500">

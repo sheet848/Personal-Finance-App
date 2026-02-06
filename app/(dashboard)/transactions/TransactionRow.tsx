@@ -36,7 +36,7 @@ export default function TransactionRow({ transaction }: Props) {
             <td>{transaction.category}</td>
 
             <td className="text-gray-500">
-                {new Date(transaction.date).toLocaleDateString()}
+                {new Date(transaction.date).toLocaleDateString("en-CA")}
             </td>
 
             <td

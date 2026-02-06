@@ -2,15 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 import TransactionClient from "./TransactionClient";
 import AddTransactionButton from "./AddTransactionButton";
 
-interface Transaction {
-  id: number;
-  name: string;
-  category: string;
-  amount: number;
-  date: string;
-  recurring: boolean;
-}
-
 export default async function Transactions() {
 
   const supabase = await createClient();
@@ -25,12 +16,14 @@ export default async function Transactions() {
     return <p>Failed to load transactions</p>;
   }
 
+  //console.log(transactions);
+
   return (
     <div className="p-6 bg-[#f8f4ef] min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">Transactions</h1>
-        <AddTransactionButton initialTransaction={transactions} />
+        <AddTransactionButton initialTransactions={transactions}/>
       </div>
 
       {/* Card */}

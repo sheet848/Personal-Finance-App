@@ -1,29 +1,24 @@
 "use client"
 
 import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 import AddTransactionModal from "./AddTransactionModal";
 
-interface AddTransactionButtonProps {
-    initialTransaction: (newTransaction: any) => void; // or the proper Transaction type
-}
+export default function AddTransactionButton({ initialTransactions }: { initialTransactions: any[] }) {
 
-interface Transaction {
-    id: number;
-    name: string;
-    category: string;
-    amount: number;
-    date: string;
-    recurring: boolean;
-}
-
-export default function AddTransactionButton({ initialTransaction }: AddTransactionButtonProps) {
-
+    const [transactions, setTransactions] = useState(initialTransactions);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    //const [transactions, setTransactions] = useState(initialTransaction); // or the proper Transaction type
 
-    const handleAdd = (newTransaction: Transaction) => {
-        initialTransaction(newTransaction);
-        setIsModalOpen(false);
+    const supabase = createClient();
+
+    async function refreshTransactions() {
+
+        const { data } = await supabase
+            .from("transactions")
+            .select("*")
+            .order("date", { ascending: false });
+
+        if (data) setTransactions(data);
     }
 
     return (
@@ -37,11 +32,11 @@ export default function AddTransactionButton({ initialTransaction }: AddTransact
 
             {isModalOpen && (
                 <AddTransactionModal
+                    isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
-                    onSuccess={handleAdd}
+                    onSuccess={refreshTransactions}
                 />
             )}
-
         </>
     )
 }
