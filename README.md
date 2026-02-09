@@ -17,9 +17,9 @@
 - add expensecategory chart on dashboard
 - add Transaction to server and save it
 - spending velocity chart added in dashbaord
+- - css to refine the app
 
 ### Continuation
-- css to refine the app
 - update the dependency files -> package.json
 - upload in vercel and portfolio
 - create a readme.md
@@ -30,3 +30,4 @@
 - TailwindCSS
 - TypeScript
 - recharts library
+- lucide-react icons
