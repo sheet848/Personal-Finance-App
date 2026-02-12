@@ -118,6 +118,11 @@ Deploy to Vercel (recommended for Next.js):
 
 Or deploy to any Node.js hosting provider that supports Next.js.
 
+## Test Credentials
+```
+Username: test@example.com
+Password: Test123
+```
 ---
 
 Built with ❤️ using Next.js and Supabase
