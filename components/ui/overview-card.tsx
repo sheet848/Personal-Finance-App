@@ -1,3 +1,5 @@
+import { IndianRupee } from "lucide-react";
+
 type Props = {
   title: string;
   value: number;
@@ -15,7 +17,8 @@ export function OverviewCard({ title, value, variant = "light" }: Props) {
     >
       <p className="text-sm opacity-70">{title}</p>
       <p className="text-3xl font-bold mt-2">
-        ${value.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+        <IndianRupee className="inline-block w-5 h-5 mr-1" />
+        {value.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
       </p>
     </div>
   );

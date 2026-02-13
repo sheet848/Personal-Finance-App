@@ -27,7 +27,7 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Footer */}
+      {/* Footer 
       <div className="mt-auto pt-6">
         <button
           className=" mt-auto hidden items-center gap-2 px-4 py-4 text-sm text-gray-400 hover:text-white md:flex"
@@ -35,6 +35,7 @@ export default function Sidebar() {
           ⏴ Minimize Menu
         </button>
       </div>
+      */}
     </aside>
   );
 }

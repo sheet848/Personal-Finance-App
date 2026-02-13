@@ -7,6 +7,7 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts"
+import { IndianRupee } from "lucide-react";
 
 interface Transaction {
     id: string;
@@ -51,7 +52,7 @@ export default function ExpenseByCategoryChart({ transactions }: Props) {
 
     return (
         <div className="min-h-[200px] break-inside-avoid rounded-lg bg-white px-5 py-6 md:p-8">
-            <h3 className="text-sm font-semibold mb-4">
+            <h3 className="text-preset-2 font-bold text-grey-900">
                 Spending by Category
             </h3>
 
@@ -78,7 +79,7 @@ export default function ExpenseByCategoryChart({ transactions }: Props) {
 
                     {/* Center Text */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <p className="text-2xl font-semibold">${totalSpent}</p>
+                        <p className="text-2xl font-semibold"><IndianRupee className="inline-block w-4 h-4 mr-1" />{totalSpent}</p>
                     </div>
                 </div>
 
@@ -92,7 +93,7 @@ export default function ExpenseByCategoryChart({ transactions }: Props) {
                             />
                             <div className="text-sm">
                                 <p className="text-gray-500">{item.name}</p>
-                                <p className="font-medium">${item.value.toFixed(2)}</p>
+                                <p className="font-medium"><IndianRupee className="inline-block w-3 h-3" />{item.value.toFixed(2)}</p>
                             </div>
                         </div>
                     ))}

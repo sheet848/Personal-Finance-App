@@ -27,7 +27,7 @@ export default function SpendingVelocityChart({
 
   return (
     <div className="bg-white rounded-xl p-5 shadow-sm">
-      <h3 className="text-sm font-semibold mb-4">
+      <h3 className="text-preset-2 font-bold text-grey-900">
         Spending Velocity
       </h3>
 

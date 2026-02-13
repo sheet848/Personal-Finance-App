@@ -1,3 +1,5 @@
+import { IndianRupee } from "lucide-react";
+
 interface Props {
     transaction: {
         avatar: string;
@@ -43,7 +45,7 @@ export default function TransactionRow({ transaction }: Props) {
                 className={`text-right font-semibold ${isPositive ? "text-green-600" : "text-red-600"
                     }`}
             >
-                {isPositive ? "+" : "-"}$
+                {isPositive ? "+" : "-"}<IndianRupee className="inline-block w-4 h-4" />
                 {Math.abs(transaction.amount).toFixed(2)}
             </td>
         </tr>

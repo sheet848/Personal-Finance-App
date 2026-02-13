@@ -1,5 +1,7 @@
 "use client";
 
+import { IndianRupee } from "lucide-react";
+
 interface BillsTableRowProps {
     transaction: {
         avatar: string;
@@ -39,7 +41,8 @@ export default function BillsTableRow({ transaction }: BillsTableRowProps) {
             </div>
 
             <div className="col-span-3 text-right font-semibold">
-                {transaction.amount}
+                <IndianRupee className="inline-block w-4 h-4" />
+                {Math.abs(transaction.amount).toFixed(2)}
             </div>
         </div>
     );

@@ -84,11 +84,15 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
   }
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md space-y-4">
-        <h2 className="text-lg font-semibold">Add Transaction</h2>
+        <h2 className="text-lg font-semibold">Add New Transaction</h2>
 
         <form onSubmit={handleSubmit} className="space-y-3">
+
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            Transaction Name
+          </label>
           <input
             name="name"
             placeholder="Name"
@@ -98,6 +102,9 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
             required
           />
 
+          <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
+            Amount
+          </label>
           <input
             name="amount"
             type="number"
@@ -108,6 +115,9 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
             required
           />
 
+          <label htmlFor="date" className="block text-sm font-medium text-gray-700">
+            Transaction Date
+          </label>
           <input
             name="date"
             type="date"
@@ -117,6 +127,9 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
             required
           />
 
+          <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+            Category
+          </label>
           <select
             name="category"
             className="w-full border px-3 py-2 rounded"
@@ -132,7 +145,7 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
             <option value="Transportation">Transportation</option>
           </select>
 
-          <label className="flex items-center gap-2">
+          <label htmlFor="recurring" className="flex items-center gap-2">
             <input
               type="checkbox"
               name="recurring"
@@ -153,7 +166,7 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
               disabled={loading}
               className="bg-black text-white px-4 py-2 rounded"
             >
-              {loading ? "Saving..." : "Save"}
+              {loading ? "Saving..." : "Submit"}
             </button>
           </div>
         </form>

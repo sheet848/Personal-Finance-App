@@ -57,7 +57,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#f8f4ef]">
       <div className="w-full max-w-sm rounded-xl bg-white shadow-lg p-6 space-y-6">
 
         {/* Title */}

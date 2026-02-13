@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { OverviewCard } from "@/components/ui/overview-card";
+import { IndianRupee } from "lucide-react";
 import { calculateDashboardStats } from "@/lib/utils/calculateDashboardStats";
 import LogoutButton from "@/components/ui/logout-button";
 import { useRecurringSummary } from "@/hooks/useRecurringSummary";
 import ExpenseByCategoryChart from "@/components/ui/ExpenseByCategoryChart";
 import SpendingVelocityChart from "@/components/ui/SpendingVelocityChart";
+import { ChevronsRight } from "lucide-react";
 
 interface Transaction {
   id: string;
@@ -50,35 +52,48 @@ function TransactionDashboard({ dashboardtransaction }: { dashboardtransaction: 
       <div className="flex flex-col gap-5">
         <div className="flex items-center justify-between">
           <h3 className="text-preset-2 font-bold text-grey-900">Transactions</h3>
-          <a href="/transactions" className="inline-flex items-center gap-3 text-grey-500">See Details</a>
+          <a href="/transactions" className="inline-flex items-center text-grey-500 underline">See Details
+            <ChevronsRight className="w-4 h-4 text-gray-500" />
+          </a>
         </div>
         {dashboardtransaction.length === 0 ? (
           <p className="text-gray-500">No transactions found.</p>
         ) : (
-          <div>
-            {dashboardtransaction.map((tx) => (
-              <div key={tx.id} className="flex justify-between items-center py-2 border-b border-grey-200">
-                <div className="size-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
-                  {
-                    tx.avatar ? (
-                      <img
-                        src={tx.avatar}
-                        alt={tx.name}
-                        className="h-10 w-10 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
-                        {tx.name[0]}
-                      </div>
-                    )
-                  }
+          <table className="w-full text-left">
+            <tbody>
+              {dashboardtransaction.map((tx) => (
+                <tr className="border-b last:border-none">
+                  <td className="py-4 flex items-center gap-3">
+                    <div className="size-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
+                      {
+                        tx.avatar ? (
+                          <img
+                            src={tx.avatar}
+                            alt={tx.name}
+                            className="h-10 w-10 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
+                            {tx.name[0].toLocaleUpperCase()}
+                          </div>
+                        )
+                      }
 
-                </div>
-                <span className="text-grey-700">{tx.name}</span>
-                <span className="text-grey-900">${tx.amount.toFixed(2)}</span>
-              </div>
-            ))}
-          </div>
+                    </div>
+                    <span className="font-medium">{tx.name}</span>
+                  </td>
+
+                  <td
+                    className={`text-right font-semibold ${tx.amount > 0 ? "text-green-600" : "text-red-600"
+                      }`}
+                  >
+                    {tx.amount > 0 ? "+" : "-"}<IndianRupee className="inline-block w-4 h-4" />
+                    {Math.abs(tx.amount).toFixed(2)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
       </div>
     </div>
@@ -91,13 +106,18 @@ function RecurringDashboard({ paidBills, totalUpcoming, dueSoon }: { paidBills: 
       <div className="flex flex-col gap-5">
         <div className="flex items-center justify-between">
           <h3 className="text-preset-2 font-bold text-grey-900">Recurring Bills</h3>
-          <a href="/recurring-bills" className="inline-flex items-center gap-3 text-grey-500">See Details</a>
+          <a href="/recurring-bills" className="inline-flex items-center text-grey-500 underline">See Details
+            <ChevronsRight className="w-4 h-4 text-gray-500" />
+          </a>
         </div>
         <div className="flex flex-col gap-3">
           <div className="relative w-full rounded-[8px] bg-[#f8f4ef] px-4 py-5 border-l-4 border-teal-700">
             <div className="flex items-center justify-between">
               <p className="text-preset-4 font-normal text-grey-500">Paid Bills</p>
-              <p className="text-preset-4 font-bold text-grey-900">${paidBills.toFixed(2)}</p>
+              <p className="text-preset-4 font-bold text-grey-900">
+                <IndianRupee className="inline-block w-4 h-4" />
+                {Math.abs(paidBills).toFixed(2)}
+              </p>
             </div>
           </div>
         </div>
@@ -105,7 +125,9 @@ function RecurringDashboard({ paidBills, totalUpcoming, dueSoon }: { paidBills: 
           <div className="relative w-full rounded-[8px] bg-[#f8f4ef] px-4 py-5 border-l-4 border-red-300">
             <div className="flex items-center justify-between">
               <p className="text-preset-4 font-normal text-grey-500">Total Upcoming</p>
-              <p className="text-preset-4 font-bold text-grey-900">${totalUpcoming.toFixed(2)}</p>
+              <p className="text-preset-4 font-bold text-grey-900">
+                <IndianRupee className="inline-block w-4 h-4" />
+                {Math.abs(totalUpcoming).toFixed(2)}</p>
             </div>
           </div>
         </div>
@@ -113,7 +135,9 @@ function RecurringDashboard({ paidBills, totalUpcoming, dueSoon }: { paidBills: 
           <div className="relative w-full rounded-[8px] bg-[#f8f4ef] px-4 py-5 border-l-4 border-teal-300">
             <div className="flex items-center justify-between">
               <p className="text-preset-4 font-normal text-grey-500">Due Soon</p>
-              <p className="text-preset-4 font-bold text-grey-900">${dueSoon.toFixed(2)}</p>
+              <p className="text-preset-4 font-bold text-grey-900">
+                <IndianRupee className="inline-block w-4 h-4" />
+                {Math.abs(dueSoon).toFixed(2)}</p>
             </div>
           </div>
         </div>
@@ -182,7 +206,7 @@ export default function Dashboard() {
         <h1 className="text-2xl font-semibold">Dashboard</h1>
         <LogoutButton />
       </div>
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <OverviewCard
           title="Current Balance"
           value={balance}

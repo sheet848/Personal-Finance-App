@@ -1,5 +1,7 @@
 "use client";
 
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 interface PaginationProps {
   page: number;
   total: number;
@@ -17,21 +19,21 @@ export default function Pagination({ page, total, pageSize, onPageChange }: Pagi
 
   return (
     <div className="flex items-center justify-between mt-6 text-sm">
-      <button className="px-3 py-2 border rounded-md"
-        disabled={page === 1} 
+      <button className="px-3 py-2 border rounded-md disabled:text-gray-400 disabled:bg-gray-100 disabled:border-gray-200 disabled:cursor-not-allowed"
+        disabled={page === 1}
         onClick={() => onPageChange(page - 1)}>
-         Prev
+        <ChevronLeft className="w-4 h-4" />
       </button>
 
       <div className="flex items-center gap-2">
         Page {page} of {totalPages}
       </div>
 
-      
-      <button className="px-3 py-2 border rounded-md"
-       disabled={page === totalPages} 
+
+      <button className="px-3 py-2 border rounded-md disabled:text-gray-400 disabled:bg-gray-100 disabled:border-gray-200 disabled:cursor-not-allowed"
+        disabled={page === totalPages}
         onClick={() => onPageChange(page + 1)}>
-        Next
+        <ChevronRight className="w-4 h-4" />
       </button>
     </div>
   )

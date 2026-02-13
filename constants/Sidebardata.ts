@@ -1,4 +1,4 @@
-import { Home, ArrowLeftRight, PieChart, Wallet, Receipt } from 'lucide-react';
+import { Home, ArrowLeftRight, Receipt } from 'lucide-react';
 
 export const sidebarItems = [
   { label: 'Dashboard', href: '/dashboard', icon: Home },

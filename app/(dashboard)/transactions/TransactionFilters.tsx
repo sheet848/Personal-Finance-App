@@ -27,7 +27,7 @@ export default function TransactionFilters({ searchQuery, onSearchChange, catego
           <select
             value={sortBy}
             onChange={(e) => onSortChange(e.target.value)}
-            className="border rounded-md px-3 py-2">
+            className="border rounded-md px-3 py-2 pr-10">
             <option value="latest">Latest</option>
             <option value="oldest">Oldest</option>
             <option value="a-z">A–Z</option>
