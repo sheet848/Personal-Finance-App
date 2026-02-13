@@ -21,7 +21,7 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
