@@ -19,7 +19,6 @@ interface Transaction {
   category: string;
   date: string;
   recurring: boolean;
-  paid?: boolean;
 }
 
 function buildSpendingVelocity(transactions: Transaction[], year: number, month: number) {
@@ -240,4 +239,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
 
