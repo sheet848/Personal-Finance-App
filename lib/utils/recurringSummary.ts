@@ -4,37 +4,31 @@ type Transaction = {
   amount: number
   date: string // ISO string
   recurring: boolean
-  paid: boolean // or status: 'paid' | 'upcoming'
 }
 
 export function recurringSummary(transactions: Transaction[]) {
-  const recurringBills = transactions.filter(t => t.recurring)
+  const now = new Date();
 
-  const today = new Date()
-  const DAYS_DUE_SOON = 7
+  // Only recurring transactions
+  const recurring = transactions.filter(t => t.recurring);
 
-  const isDueSoon = (date: string) => {
-    const billDate = new Date(date)
-    const diff = (billDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-    return diff >= 0 && diff <= DAYS_DUE_SOON
-  }
+  const totalBills = recurring.length;
 
-  const totalBills = recurringBills.reduce(
-    (sum, b) => sum + b.amount,
-    0
-  )
+  const paidBills = recurring.filter(t => {
+    return new Date(t.date) < now;
+  }).length;
 
-  const paidBills = recurringBills
-    .filter(b => b.paid)
-    .reduce((sum, b) => sum + b.amount, 0)
+  const totalUpcoming = recurring
+    .filter(t => new Date(t.date) >= now)
+    .reduce((sum, t) => sum + t.amount, 0);
 
-  const totalUpcoming = recurringBills
-    .filter(b => !b.paid)
-    .reduce((sum, b) => sum + b.amount, 0)
+  const dueSoon = recurring.filter(t => {
+    const billDate = new Date(t.date);
+    const diffInDays =
+      (billDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
 
-  const dueSoon = recurringBills
-    .filter(b => !b.paid && isDueSoon(b.date))
-    .reduce((sum, b) => sum + b.amount, 0)
+    return diffInDays >= 0 && diffInDays <= 7;
+  }).length;
 
   return {
     totalBills,
