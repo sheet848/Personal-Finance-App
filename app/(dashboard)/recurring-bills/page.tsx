@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import TotalBillsCard from "./TotalBillsCard";
 import SummaryCard from "./SummaryCard";
-import { useRecurringSummary } from "@/hooks/useRecurringSummary";
+import { recurringSummary } from "@/lib/utils/recurringSummary";
 import RecurringBillClient from "./RecurringBillClient";
 
 export default async function RecurringBills() {
@@ -20,14 +20,14 @@ export default async function RecurringBills() {
     return <p>Failed to load transactions</p>;
   }
 
-  console.log(transactions);
+  // console.log(transactions);
 
   const {
     totalBills,
     paidBills,
     totalUpcoming,
     dueSoon
-  } = useRecurringSummary(transactions)
+  } = recurringSummary(transactions);
 
   return (
     <div className="p-6 bg-[#f8f4ef] min-h-screen">

@@ -7,7 +7,7 @@ type Transaction = {
   paid: boolean // or status: 'paid' | 'upcoming'
 }
 
-export function useRecurringSummary(transactions: Transaction[]) {
+export function recurringSummary(transactions: Transaction[]) {
   const recurringBills = transactions.filter(t => t.recurring)
 
   const today = new Date()

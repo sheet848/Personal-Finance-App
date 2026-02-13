@@ -6,7 +6,7 @@ import { OverviewCard } from "@/components/ui/overview-card";
 import { IndianRupee } from "lucide-react";
 import { calculateDashboardStats } from "@/lib/utils/calculateDashboardStats";
 import LogoutButton from "@/components/ui/logout-button";
-import { useRecurringSummary } from "@/hooks/useRecurringSummary";
+import { recurringSummary } from "@/lib/utils/recurringSummary";
 import ExpenseByCategoryChart from "@/components/ui/ExpenseByCategoryChart";
 import SpendingVelocityChart from "@/components/ui/SpendingVelocityChart";
 import { ChevronsRight } from "lucide-react";
@@ -62,7 +62,7 @@ function TransactionDashboard({ dashboardtransaction }: { dashboardtransaction: 
           <table className="w-full text-left">
             <tbody>
               {dashboardtransaction.map((tx) => (
-                <tr className="border-b last:border-none">
+                <tr key={tx.id} className="border-b last:border-none">
                   <td className="py-4 flex items-center gap-3">
                     <div className="size-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold">
                       {
@@ -188,16 +188,15 @@ export default function Dashboard() {
     previousMonthDate.getMonth()
   )
 
-
   const { income, expenses, balance } = calculateDashboardStats(transactions); // overview card stats
-
-  const dashboardTransactions = transactions.slice(0, 5); // Show only the latest 5 transactions
 
   const {
     paidBills,
     totalUpcoming,
     dueSoon
-  } = useRecurringSummary(transactions); // recurring bill summary
+  } = recurringSummary(transactions); // recurring bill summary
+
+  const dashboardTransactions = transactions.slice(0, 5); // Show only the latest 5 transactions
 
   return (
     <div className="p-6 bg-[#f8f4ef] min-h-screen">
