@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 interface AddTransactionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: (newTransaction: any) => void; // or the proper Transaction type
+  onSuccess: () => void; // or the proper Transaction type
 }
 
 export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddTransactionModalProps) {
