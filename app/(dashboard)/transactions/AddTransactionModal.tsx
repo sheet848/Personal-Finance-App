@@ -25,12 +25,12 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
 
   if (!isOpen) return null;
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value, type, checked } = e.target;
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { name, value, type } = e.target;
 
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   }
 
