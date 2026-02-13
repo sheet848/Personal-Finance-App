@@ -25,7 +25,7 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
 
   if (!isOpen) return null;
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value, type, checked } = e.target;
 
     setForm((prev) => ({
@@ -34,7 +34,7 @@ export default function AddTransactionModal({ isOpen, onClose, onSuccess }: AddT
     }));
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setError(null);
